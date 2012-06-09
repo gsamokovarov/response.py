@@ -34,7 +34,7 @@ class ResponseStack(local):
 
     def pop(self):
         try:
-            return self.top
+            return self.top()
         finally:
             del self.content[-1]
 
