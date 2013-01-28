@@ -20,7 +20,7 @@ __copyright__ = 'Copyrignt 2012 Genadi Samokovarov'
 
 class ResponseStack(local):
     '''
-    Thread-local stack for responses.
+    Thread-local stack of responses.
     '''
 
     def __init__(self):
