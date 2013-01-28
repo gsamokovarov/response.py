@@ -1,9 +1,9 @@
 '''
- _ __ ___  ___ _ __   ___  _ __  ___  ___   _ __  _   _ 
+ _ __ ___  ___ _ __   ___  _ __  ___  ___   _ __  _   _
 | '__/ _ \/ __| '_ \ / _ \| '_ \/ __|/ _ \ | '_ \| | | |
 | | |  __/\__ \ |_) | (_) | | | \__ \  __/_| |_) | |_| |
 |_|  \___||___/ .__/ \___/|_| |_|___/\___(_) .__/ \__, |
-              |_|                          |_|    |___/ 
+              |_|                          |_|    |___/
 '''
 
 from contextlib import contextmanager
@@ -24,19 +24,21 @@ class ResponseStack(local):
     '''
 
     def __init__(self):
-        self.content = list()
+        self.content = []
 
     def top(self):
-        return self.content[-1] if self.content else None
+        if self:
+            return self.content[-1]
 
     def push(self, response):
         self.content.append(response)
 
     def pop(self):
-        try:
-            return self.top()
-        finally:
-            del self.content[-1]
+        if self:
+            try:
+                return self.top()
+            finally:
+                del self.content[-1]
 
     __iter__    = lambda self: iter(self.content)
     __len__     = lambda self: len(self.content)
